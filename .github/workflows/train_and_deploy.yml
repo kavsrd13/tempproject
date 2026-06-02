@@ -35,9 +35,9 @@ jobs:
       env:
         AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
       run: |
-        # Setup DVC remote if not in dvc config already (or it should be committed)
-        dvc remote add -d azure_remote azure://your-container/dvcstore
-        dvc remote modify azure_remote connection_string "$AZURE_STORAGE_CONNECTION_STRING"
+        # The remote 'azure_remote' is already in .dvc/config from git
+        # We just need to securely inject the connection string for this runner
+        dvc remote modify --local azure_remote connection_string "$AZURE_STORAGE_CONNECTION_STRING"
         dvc pull
         
     - name: Run Training Pipeline

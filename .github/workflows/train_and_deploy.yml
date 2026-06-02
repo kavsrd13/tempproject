@@ -1,0 +1,51 @@
+name: Train and Deploy MLOps Pipeline
+
+on:
+  push:
+    paths:
+      - 'data/raw/dataset.csv.dvc'
+      - 'dvc.lock'
+      - 'src/**'
+    branches:
+      - main
+
+jobs:
+  train_and_deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: DVC Pull
+      env:
+        AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      run: |
+        # Setup DVC remote if not in dvc config already (or it should be committed)
+        dvc remote add -d azure_remote azure://your-container/dvcstore
+        dvc remote modify azure_remote connection_string "$AZURE_STORAGE_CONNECTION_STRING"
+        dvc pull
+        
+    - name: Run Training Pipeline
+      run: |
+        python src/train.py
+        
+    - name: Deploy to Azure Container Apps
+      # If training passes, run the deployment script
+      run: |
+        chmod +x deploy_to_azure.sh
+        ./deploy_to_azure.sh

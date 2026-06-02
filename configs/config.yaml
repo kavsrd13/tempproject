@@ -1,0 +1,14 @@
+data:
+  raw_data_path: "data/raw/dataset.csv"
+  production_logs_path: "data/production/production_logs.csv"
+  test_size: 0.2
+  random_state: 42
+  target_col: "target"
+
+model:
+  C: 1.0
+  max_iter: 100
+  model_save_path: "models/model.pkl"
+
+mlflow:
+  experiment_name: "mlops_experiment"

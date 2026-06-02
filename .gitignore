@@ -1,0 +1,24 @@
+# Environments
+.env
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data and Models
+data/raw/*.csv
+data/production/*.csv
+models/
+reports/
+
+# MLflow
+mlruns/
+mlruns.db
+
+# DVC
+/data/raw/dataset.csv

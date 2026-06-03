@@ -8,7 +8,7 @@ set -euo pipefail
 RESOURCE_GROUP="rg-mlops-project"
 LOCATION="centralus"
 ACR_NAME="mlopsacr$RANDOM"
-ACA_ENVIRONMENT="mlops-env"
+ACA_ENVIRONMENT="mlopsenv$RANDOM"
 CONTAINER_APP_NAME="mlops-api"
 IMAGE_NAME="mlops-api"
 IMAGE_TAG="latest"

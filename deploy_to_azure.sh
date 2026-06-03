@@ -6,7 +6,7 @@
 set -euo pipefail
 
 RESOURCE_GROUP="rg-mlops-project"
-LOCATION="eastus2"
+LOCATION="centralus"
 ACR_NAME="mlopsacr$RANDOM"
 ACA_ENVIRONMENT="mlops-env"
 CONTAINER_APP_NAME="mlops-api"

@@ -39,7 +39,7 @@ jobs:
         # The remote 'azure_remote' is already in .dvc/config from git
         # We just need to securely inject the connection string for this runner
         dvc remote modify --local azure_remote connection_string "$AZURE_STORAGE_CONNECTION_STRING"
-        dvc pull
+        dvc pull data/raw/dataset.csv.dvc
         
     - name: Run Training Pipeline
       run: |

@@ -6,6 +6,7 @@ on:
       - 'data/raw/dataset.csv.dvc'
       - 'dvc.lock'
       - 'src/**'
+      - '.github/workflows/**'
     branches:
       - main
 
